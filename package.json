@@ -1,0 +1,26 @@
+{
+  "devDependencies": {
+    "@softwareventures/prettier-config": "^1.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "node-ts": "^5.1.1",
+    "prettier": "^2.2.0"
+  },
+  "prettier": "@softwareventures/prettier-config",
+  "name": "paydaycalc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^4.1.2"
+  },
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "fix": "eslint . --fix && prettier --write ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
