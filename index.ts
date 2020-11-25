@@ -20,19 +20,6 @@ import {ReadonlyDictionary} from "dictionary-types";
 // Using UTC versions of calls with the Date object in JS due to very wonky workings with implied time zones which can cause bugs.
 
 /**
- * interface for an enum for weekdays
- */
-interface weekEnum {
-    monday: number;
-    tuesday: number;
-    wednesday: number;
-    thursday: number;
-    friday: number;
-    saturday: number;
-    sunday: number;
-}
-
-/**
  * Interface that defines the table headers for the csv and what types the rows are
  *
  * @interface payDayCSVRow
@@ -43,15 +30,15 @@ interface payDayCSVRow extends ReadonlyDictionary<string> {
     type: string;
 }
 
-const days: weekEnum = {
-    monday: 1,
-    tuesday: 2,
-    wednesday: 3,
-    thursday: 4,
-    friday: 5,
-    saturday: 6,
-    sunday: 0
-};
+enum days {
+    monday = 1,
+    tuesday = 2,
+    wednesday = 3,
+    thursday = 4,
+    friday = 5,
+    saturday = 6,
+    sunday = 0
+}
 
 /**
  * Wrapper for the toISOString function that removes time info, only leaving the date.
@@ -130,11 +117,11 @@ function getUTCDay(date: Date): number {
  * Checks if the given date is on a weekend and moves it to specified day if so.
  *
  * @param {Date} date Date object representing the date to check
- * @param {number} day Day of the week we want to move the date to if the date given falls on a weekend
+ * @param {days} day Day of the week we want to move the date to if the date given falls on a weekend
  * @param {boolean} [nextWeek] Optional bool to move the date to next week rather than looking backwards for a viable date
  * @returns {Date} A non weekend date. If date given is a non-weekend day, just returns given date.
  */
-function calculateNonWeekend(date: Date, day: number, nextWeek?: boolean): Date {
+function calculateNonWeekend(date: Date, day: days, nextWeek?: boolean): Date {
     if (isWeekend(date)) {
         let dayNo = getUTCDay(date);
         if (nextWeek === true) {
