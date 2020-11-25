@@ -16,6 +16,21 @@
 import * as csv from "@softwareventures/csv";
 import {recordsToTable} from "@softwareventures/table";
 import {ReadonlyDictionary} from "dictionary-types";
+import {name, description, version} from "./package.json";
+import program from "commander";
+
+// Parse command line args
+program
+    .name(name)
+    .description(description)
+    .version(version, "-v, --version", "output the current version")
+    .option(
+        "-m, --months [num]",
+        "Specify how many months in the future to calculate paydays.",
+        parseInt,
+        12
+    )
+    .parse(process.argv);
 
 // Using UTC versions of calls with the Date object in JS due to very wonky workings with implied time zones which can cause bugs.
 
@@ -164,5 +179,5 @@ function calcFuturePayDays(amountOfMonths: number): payDayCSVRow[] {
     return dates;
 }
 
-const payDays = calcFuturePayDays(12);
+const payDays = calcFuturePayDays(program.months);
 console.log(csv.write(recordsToTable(payDays)));
