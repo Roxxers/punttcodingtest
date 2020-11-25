@@ -25,7 +25,7 @@ import {
     Days
 } from "./date";
 
-import {writeCSV, payDayCSVRow} from "./csv";
+import {writeCSV, PayDayCSVRow} from "./csv";
 
 // Parse command line args
 program
@@ -66,22 +66,22 @@ export function calculateNonWeekend(date: Date, day: Days, nextWeek?: boolean): 
  * This is done for salary and bonus paydays.
  *
  * @param {number} amountOfMonths
- * @returns {payDayCSVRow[]} List of rows to populate the CSV file
+ * @returns {PayDayCSVRow[]} List of rows to populate the CSV file
  */
-export function calcFuturePayDays(amountOfMonths: number, dateNow: Date): payDayCSVRow[] {
+export function calcFuturePayDays(amountOfMonths: number, dateNow: Date): PayDayCSVRow[] {
     const monthNow = dateNow.getUTCMonth();
-    const dates: payDayCSVRow[] = [];
+    const dates: PayDayCSVRow[] = [];
 
     for (let i = 0; i <= amountOfMonths; ++i) {
         const year = dateNow.getUTCFullYear();
         const monthNo = monthNow + i;
         const endOfMonth: Date = newUTCEndOfMonth(year, monthNo);
         const midOfMonth: Date = newUTCMidMonth(year, monthNo);
-        const bonusPayDay: payDayCSVRow = {
+        const bonusPayDay: PayDayCSVRow = {
             date: toUTCDateString(calculateNonWeekend(midOfMonth, Days.wednesday, true)),
             type: "bonus"
         };
-        const salaryPayDay: payDayCSVRow = {
+        const salaryPayDay: PayDayCSVRow = {
             date: toUTCDateString(calculateNonWeekend(endOfMonth, Days.friday)),
             type: "salary"
         };

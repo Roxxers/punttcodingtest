@@ -8,7 +8,7 @@ import * as csv from "@softwareventures/csv";
  * @interface payDayCSVRow
  * @extends {ReadonlyDictionary<string>}, this allows object to be converted into a table to be parsed as a csv by the lib
  */
-export interface payDayCSVRow extends ReadonlyDictionary<string> {
+export interface PayDayCSVRow extends ReadonlyDictionary<string> {
     date: string;
     type: string;
 }
