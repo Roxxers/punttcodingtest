@@ -28,7 +28,7 @@ export function toUTCDateString(date: Date): string {
  * @param {...number[]} args
  * @returns {Date}
  */
-export function newUTCDate(year: number, month: number, ...args: number[]): Date {
+export function getUTCFixedDay(year: number, month: number, ...args: number[]): Date {
     const UTC = Date.UTC(year, month, ...args);
     return new Date(UTC);
 }
@@ -41,7 +41,7 @@ export function newUTCDate(year: number, month: number, ...args: number[]): Date
  * @returns {Date}
  */
 export function newUTCMidMonth(year: number, month: number): Date {
-    return newUTCDate(year, month, 15);
+    return getUTCFixedDay(year, month, 15);
 }
 
 /**
@@ -53,7 +53,7 @@ export function newUTCMidMonth(year: number, month: number): Date {
  */
 export function newUTCEndOfMonth(year: number, month: number): Date {
     // +1 So that we go to the beginning of the next month -1, so the end of the current month we are asking for
-    return newUTCDate(year, month + 1, 0);
+    return getUTCFixedDay(year, month + 1, 0);
 }
 
 /**

@@ -1,7 +1,7 @@
 import test from "ava";
 import {
     toUTCDateString,
-    newUTCDate,
+    getUTCFixedDay,
     newUTCMidMonth,
     newUTCEndOfMonth,
     isWeekend,
@@ -10,16 +10,16 @@ import {
 
 // All tests should be normalised with UTC or they fail
 
-test("newUTCDate creates UTC time object", t => {
+test("getUTCFixedDay creates UTC time object", t => {
     // This falls under day light savings in the UK so this should check for UTC even in GMT timezones
     t.is(
-        newUTCDate(2020, 5, 3, 15, 28, 19).getTime(),
+        getUTCFixedDay(2020, 5, 3, 15, 28, 19).getTime(),
         1591198099000 // Unix epoch in milliseconds for my birthday (3rd June)
     );
 });
 
 test("toUTCDateString creates accurate date string", t => {
-    t.is(toUTCDateString(newUTCDate(2019, 11, 25)), "2019-12-25");
+    t.is(toUTCDateString(getUTCFixedDay(2019, 11, 25)), "2019-12-25");
 });
 
 test("toUTCMidMonth creates accurate date object", t => {
