@@ -37,8 +37,7 @@ program
         "Specify how many months in the future to calculate paydays.",
         parseInt,
         12
-    )
-    .parse(process.argv);
+    );
 
 /**
  * Checks if the given date is on a weekend and moves it to specified day if so.
@@ -91,5 +90,6 @@ export function calcFuturePayDays(amountOfMonths: number, dateNow: Date): PayDay
 }
 
 if (require.main === module) {
+    program.parse(process.argv);
     console.log(writeCSV(calcFuturePayDays(program.months, new Date())));
 }
