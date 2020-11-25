@@ -30,7 +30,7 @@ interface payDayCSVRow extends ReadonlyDictionary<string> {
     type: string;
 }
 
-enum days {
+enum Days {
     monday = 1,
     tuesday = 2,
     wednesday = 3,
@@ -92,7 +92,7 @@ function newUTCEndOfMonth(year: number, month: number): Date {
  */
 function isWeekend(date: Date): boolean {
     // 0 Sun, 1 Mon...
-    if (days.monday <= date.getUTCDay() && date.getUTCDay() <= days.friday) {
+    if (Days.monday <= date.getUTCDay() && date.getUTCDay() <= Days.friday) {
         return false;
     }
     return true;
@@ -107,7 +107,7 @@ function isWeekend(date: Date): boolean {
  */
 function getUTCDay(date: Date): number {
     let dayNo = date.getUTCDay();
-    if (dayNo <= days.monday) {
+    if (dayNo <= Days.monday) {
         dayNo = 7;
     }
     return dayNo;
@@ -117,11 +117,11 @@ function getUTCDay(date: Date): number {
  * Checks if the given date is on a weekend and moves it to specified day if so.
  *
  * @param {Date} date Date object representing the date to check
- * @param {days} day Day of the week we want to move the date to if the date given falls on a weekend
+ * @param {Days} day Day of the week we want to move the date to if the date given falls on a weekend
  * @param {boolean} [nextWeek] Optional bool to move the date to next week rather than looking backwards for a viable date
  * @returns {Date} A non weekend date. If date given is a non-weekend day, just returns given date.
  */
-function calculateNonWeekend(date: Date, day: days, nextWeek?: boolean): Date {
+function calculateNonWeekend(date: Date, day: Days, nextWeek?: boolean): Date {
     if (isWeekend(date)) {
         let dayNo = getUTCDay(date);
         if (nextWeek === true) {
@@ -152,11 +152,11 @@ function calcFuturePayDays(amountOfMonths: number): payDayCSVRow[] {
         const endOfMonth: Date = newUTCEndOfMonth(year, monthNo);
         const midOfMonth: Date = newUTCMidMonth(year, monthNo);
         const bonusPayDay: payDayCSVRow = {
-            date: toUTCDateString(calculateNonWeekend(midOfMonth, days.wednesday, true)),
+            date: toUTCDateString(calculateNonWeekend(midOfMonth, Days.wednesday, true)),
             type: "bonus"
         };
         const salaryPayDay: payDayCSVRow = {
-            date: toUTCDateString(calculateNonWeekend(endOfMonth, days.friday)),
+            date: toUTCDateString(calculateNonWeekend(endOfMonth, Days.friday)),
             type: "salary"
         };
         dates.push(bonusPayDay, salaryPayDay);
