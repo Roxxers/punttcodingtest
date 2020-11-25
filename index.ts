@@ -92,9 +92,4 @@ export function calcFuturePayDays(amountOfMonths: number, dateNow: Date): payDay
 
 if (require.main === module) {
     console.log(writeCSV(calcFuturePayDays(program.months, new Date())));
-    const row = {
-        hello: "world",
-        foo: "bar"
-    };
-    console.log(writeCSV([row, row]));
 }
